@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.pds.logistics.ui.controllers.ScenariosController"
+      spacing="0">
+
+    <HBox styleClass="page-header" alignment="CENTER_LEFT" spacing="12">
+        <VBox spacing="2">
+            <Label text="🔀 What-If Scenarios" styleClass="page-title"/>
+            <Label text="Simulate disruptions and demand surges; compare against baseline" styleClass="page-subtitle"/>
+        </VBox>
+    </HBox>
+
+    <ScrollPane VBox.vgrow="ALWAYS" fitToWidth="true">
+        <VBox spacing="20" style="-fx-padding: 24px;">
+
+            <!-- Config panel -->
+            <HBox spacing="16">
+                <VBox styleClass="panel" spacing="14" prefWidth="340">
+                    <Label text="Scenario Configuration" styleClass="panel-title"/>
+                    <Separator/>
+
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="Scenario Type:" minWidth="120"/>
+                        <ComboBox fx:id="cmbScenarioType" prefWidth="180"/>
+                    </HBox>
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="Grain Type:" minWidth="120"/>
+                        <ComboBox fx:id="cmbGrainType" prefWidth="120"/>
+                    </HBox>
+
+                    <Separator/>
+                    <Label text="Supply Shock % Reduction:" style="-fx-text-fill: #8b949e;"/>
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Slider fx:id="sldrSupplyChange" min="5" max="80" value="20" HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="lblSupplyPct" text="20%" minWidth="40"/>
+                    </HBox>
+
+                    <Label text="Demand Surge % Increase:" style="-fx-text-fill: #8b949e;"/>
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Slider fx:id="sldrDemandChange" min="5" max="100" value="30" HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="lblDemandPct" text="30%" minWidth="40"/>
+                    </HBox>
+
+                    <Label text="Route IDs to disable (for Route Failure):" style="-fx-text-fill: #8b949e;"/>
+                    <TextField fx:id="txfRouteIds" promptText="e.g. 1,3,7"/>
+
+                    <Separator/>
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Button fx:id="btnRunScenario" text="▶ Run Scenario" styleClass="btn-primary"
+                                onAction="#runScenario"/>
+                        <ProgressIndicator fx:id="spinner" prefSize="24"/>
+                    </HBox>
+                </VBox>
+
+                <!-- Comparison Panel -->
+                <VBox styleClass="panel" spacing="16" HBox.hgrow="ALWAYS">
+                    <HBox spacing="8" alignment="CENTER_LEFT">
+                        <Label text="📊 Comparison" styleClass="panel-title"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="lblScenStatus" text="Run a scenario to see comparison"
+                               style="-fx-text-fill: #8b949e;"/>
+                    </HBox>
+                    <Separator/>
+
+                    <!-- Header row -->
+                    <GridPane hgap="20" vgap="14">
+                        <columnConstraints>
+                            <ColumnConstraints minWidth="160"/>
+                            <ColumnConstraints minWidth="130" halignment="CENTER"/>
+                            <ColumnConstraints minWidth="130" halignment="CENTER"/>
+                            <ColumnConstraints minWidth="130" halignment="CENTER"/>
+                        </columnConstraints>
+
+                        <Label text="Metric" style="-fx-text-fill: #8b949e; -fx-font-weight:600;" GridPane.columnIndex="0"/>
+                        <Label text="BASELINE" style="-fx-text-fill: #8b949e; -fx-font-weight:600;" GridPane.columnIndex="1"/>
+                        <Label text="SCENARIO" style="-fx-text-fill: #8b949e; -fx-font-weight:600;" GridPane.columnIndex="2"/>
+                        <Label text="DELTA" style="-fx-text-fill: #8b949e; -fx-font-weight:600;" GridPane.columnIndex="3"/>
+
+                        <!-- Transported -->
+                        <Label text="Total Transported (MT)" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                        <Label fx:id="lblBaseTransported" text="–" GridPane.columnIndex="1" GridPane.rowIndex="1"
+                               style="-fx-font-size:15px; -fx-text-fill:#f59e0b;"/>
+                        <Label fx:id="lblScenTransported" text="–" GridPane.columnIndex="2" GridPane.rowIndex="1"
+                               style="-fx-font-size:15px; -fx-text-fill:#f59e0b;"/>
+                        <Label fx:id="lblDeltaTransported" text="–" GridPane.columnIndex="3" GridPane.rowIndex="1"
+                               style="-fx-font-size:15px; -fx-font-weight:700;"/>
+
+                        <!-- Efficiency -->
+                        <Label text="Network Efficiency (%)" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                        <Label fx:id="lblBaseEfficiency" text="–" GridPane.columnIndex="1" GridPane.rowIndex="2"
+                               style="-fx-font-size:15px; -fx-text-fill:#22c55e;"/>
+                        <Label fx:id="lblScenEfficiency" text="–" GridPane.columnIndex="2" GridPane.rowIndex="2"
+                               style="-fx-font-size:15px; -fx-text-fill:#22c55e;"/>
+                        <Label fx:id="lblDeltaEfficiency" text="–" GridPane.columnIndex="3" GridPane.rowIndex="2"
+                               style="-fx-font-size:15px; -fx-font-weight:700;"/>
+
+                        <!-- Cost -->
+                        <Label text="Total Transport Cost (₹)" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                        <Label fx:id="lblBaseCost" text="–" GridPane.columnIndex="1" GridPane.rowIndex="3"
+                               style="-fx-font-size:15px; -fx-text-fill:#ef4444;"/>
+                        <Label fx:id="lblScenCost" text="–" GridPane.columnIndex="2" GridPane.rowIndex="3"
+                               style="-fx-font-size:15px; -fx-text-fill:#ef4444;"/>
+                        <Label fx:id="lblDeltaCost" text="–" GridPane.columnIndex="3" GridPane.rowIndex="3"
+                               style="-fx-font-size:15px; -fx-font-weight:700;"/>
+                    </GridPane>
+                </VBox>
+            </HBox>
+        </VBox>
+    </ScrollPane>
+</VBox>

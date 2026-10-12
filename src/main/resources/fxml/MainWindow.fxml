@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.pds.logistics.ui.controllers.MainWindowController"
+            prefWidth="1280" prefHeight="800">
+
+    <!-- ═══ LEFT SIDEBAR ══════════════════════════════════════════════════ -->
+    <left>
+        <VBox id="sidebar">
+            <!-- Logo / Title -->
+            <VBox styleClass="sidebar-header" spacing="4">
+                <Label text="🌾 PDS Logistics" styleClass="app-title"/>
+                <Label text="Optimization System" styleClass="app-subtitle"/>
+            </VBox>
+
+            <!-- Navigation Buttons -->
+            <VBox spacing="2" style="-fx-padding: 12px 8px;">
+                <Button fx:id="btnDashboard"     text="📊  Dashboard"          styleClass="nav-button,active"
+                        onAction="#showDashboard"   maxWidth="Infinity"/>
+                <Button fx:id="btnLocations"     text="📍  Locations"          styleClass="nav-button"
+                        onAction="#showLocations"   maxWidth="Infinity"/>
+                <Button fx:id="btnInventory"     text="🏭  Inventory"          styleClass="nav-button"
+                        onAction="#showInventory"   maxWidth="Infinity"/>
+                <Button fx:id="btnDemand"        text="📋  Demand"             styleClass="nav-button"
+                        onAction="#showDemand"      maxWidth="Infinity"/>
+                <Button fx:id="btnRoutes"        text="🛣️   Routes"            styleClass="nav-button"
+                        onAction="#showRoutes"      maxWidth="Infinity"/>
+                <Separator/>
+                <Button fx:id="btnOptimize"      text="⚡  Run Optimization"   styleClass="nav-button"
+                        onAction="#showOptimize"    maxWidth="Infinity"/>
+                <Button fx:id="btnNetwork"       text="🗺️   Network Graph"     styleClass="nav-button"
+                        onAction="#showNetwork"     maxWidth="Infinity"/>
+                <Button fx:id="btnScenarios"     text="🔀  What-If Scenarios"  styleClass="nav-button"
+                        onAction="#showScenarios"   maxWidth="Infinity"/>
+                <Button fx:id="btnHistory"       text="📜  History &amp; Export" styleClass="nav-button"
+                        onAction="#showHistory"     maxWidth="Infinity"/>
+            </VBox>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <!-- DB Connection Indicator -->
+            <VBox style="-fx-padding: 12px 16px; -fx-border-color: #30363d; -fx-border-width: 1px 0 0 0;" spacing="4">
+                <Label fx:id="lblDbStatus" text="● Connecting…"
+                       style="-fx-text-fill: #484f58; -fx-font-size: 11px;"/>
+                <Label text="v1.0.0" style="-fx-text-fill: #484f58; -fx-font-size: 10px;"/>
+            </VBox>
+        </VBox>
+    </left>
+
+    <!-- ═══ MAIN CONTENT ═════════════════════════════════════════════════ -->
+    <center>
+        <VBox>
+            <!-- Content stack – swapped by controller -->
+            <StackPane fx:id="contentStack" VBox.vgrow="ALWAYS"/>
+
+            <!-- Status bar -->
+            <HBox styleClass="status-bar" alignment="CENTER_LEFT" spacing="16">
+                <Label fx:id="lblStatus" text="Ready" styleClass="status-text"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <ProgressBar fx:id="progressBar" prefWidth="120" prefHeight="8"
+                             visible="false"/>
+                <Label fx:id="lblStatusRight" text="" styleClass="status-text"/>
+            </HBox>
+        </VBox>
+    </center>
+
+</BorderPane>

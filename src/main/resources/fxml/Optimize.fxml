@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.pds.logistics.ui.controllers.OptimizeController"
+      spacing="0">
+
+    <!-- Header -->
+    <HBox styleClass="page-header" alignment="CENTER_LEFT" spacing="12">
+        <VBox spacing="2">
+            <Label text="⚡ Run Optimization" styleClass="page-title"/>
+            <Label text="Min-Cost Max-Flow (MCMF) with Dijkstra · Successive Shortest Path" styleClass="page-subtitle"/>
+        </VBox>
+    </HBox>
+
+    <SplitPane VBox.vgrow="ALWAYS" orientation="VERTICAL" dividerPositions="0.28">
+
+        <!-- ── TOP: Config + Summary ────────────────────────────────────────── -->
+        <VBox spacing="16" style="-fx-padding: 20px;">
+            <HBox spacing="16" alignment="CENTER_LEFT">
+
+                <!-- Config panel -->
+                <VBox styleClass="panel" spacing="12" prefWidth="280">
+                    <Label text="⚙ Configuration" styleClass="panel-title"/>
+                    <Separator/>
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="Grain Type:" minWidth="90"/>
+                        <ComboBox fx:id="cmbGrainType" prefWidth="160"/>
+                    </HBox>
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <CheckBox fx:id="chkPersist" selected="true"/>
+                        <Label text="Save result to database"/>
+                    </HBox>
+                    <Separator/>
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Button fx:id="btnRun" text="▶ Run MCMF Optimizer"
+                                styleClass="btn-primary" onAction="#runOptimization"/>
+                        <ProgressIndicator fx:id="spinner" prefSize="24" prefHeight="24"/>
+                    </HBox>
+                </VBox>
+
+                <!-- Status + Summary metrics -->
+                <VBox styleClass="panel" spacing="12" HBox.hgrow="ALWAYS">
+                    <HBox spacing="8" alignment="CENTER_LEFT">
+                        <Label text="Status:" style="-fx-text-fill: #8b949e;"/>
+                        <Label fx:id="lblStatus" text="Ready – configure and run" style="-fx-text-fill: #8b949e;"/>
+                    </HBox>
+                    <Separator/>
+                    <GridPane hgap="32" vgap="10">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="33"/>
+                            <ColumnConstraints percentWidth="33"/>
+                            <ColumnConstraints percentWidth="34"/>
+                        </columnConstraints>
+                        <!-- Row 0 -->
+                        <VBox spacing="3" GridPane.columnIndex="0">
+                            <Label text="TRANSPORTED" style="-fx-text-fill: #8b949e; -fx-font-size:11px;"/>
+                            <Label fx:id="lblTransported" text="–" style="-fx-font-size:20px; -fx-font-weight:700; -fx-text-fill:#f59e0b;"/>
+                        </VBox>
+                        <VBox spacing="3" GridPane.columnIndex="1">
+                            <Label text="TOTAL COST" style="-fx-text-fill: #8b949e; -fx-font-size:11px;"/>
+                            <Label fx:id="lblTotalCost" text="–" style="-fx-font-size:20px; -fx-font-weight:700; -fx-text-fill:#ef4444;"/>
+                        </VBox>
+                        <VBox spacing="3" GridPane.columnIndex="2">
+                            <Label text="EFFICIENCY" style="-fx-text-fill: #8b949e; -fx-font-size:11px;"/>
+                            <Label fx:id="lblEfficiency" text="–" style="-fx-font-size:20px; -fx-font-weight:700; -fx-text-fill:#22c55e;"/>
+                        </VBox>
+                        <!-- Row 1 -->
+                        <VBox spacing="3" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                            <Label text="FULFILLED DEMAND" style="-fx-text-fill: #8b949e; -fx-font-size:11px;"/>
+                            <Label fx:id="lblFulfilled" text="–" style="-fx-font-size:16px; -fx-text-fill:#14b8a6;"/>
+                        </VBox>
+                        <VBox spacing="3" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                            <Label text="UNMET DEMAND" style="-fx-text-fill: #8b949e; -fx-font-size:11px;"/>
+                            <Label fx:id="lblUnmet" text="–" style="-fx-font-size:16px; -fx-text-fill:#f59e0b;"/>
+                        </VBox>
+                        <VBox spacing="3" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                            <Label text="SOLVE TIME" style="-fx-text-fill: #8b949e; -fx-font-size:11px;"/>
+                            <Label fx:id="lblDuration" text="–" style="-fx-font-size:16px; -fx-text-fill:#8b949e;"/>
+                        </VBox>
+                    </GridPane>
+                    <ProgressBar fx:id="pbEfficiency" maxWidth="Infinity" prefHeight="8" progress="0"/>
+                    <HBox spacing="8">
+                        <Label text="Algorithm:" style="-fx-text-fill: #484f58; -fx-font-size:11px;"/>
+                        <Label fx:id="lblAlgorithm" text="MCMF-SSP-Dijkstra" style="-fx-text-fill: #484f58; -fx-font-size:11px;"/>
+                    </HBox>
+                </VBox>
+            </HBox>
+        </VBox>
+
+        <!-- ── BOTTOM: Results Table ─────────────────────────────────────────── -->
+        <VBox spacing="12" style="-fx-padding: 16px 20px;">
+            <HBox alignment="CENTER_LEFT" spacing="12">
+                <Label text="Route-Wise Allocation Results" styleClass="panel-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="btnExport" text="⬇ Export CSV" styleClass="btn-secondary"
+                        onAction="#exportResult" disable="true"/>
+            </HBox>
+
+            <TableView fx:id="tblResults" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="colSrc"      text="Source"       prefWidth="160"/>
+                    <TableColumn fx:id="colDst"      text="Destination"  prefWidth="160"/>
+                    <TableColumn fx:id="colMode"     text="Mode"         prefWidth="70"/>
+                    <TableColumn fx:id="colCapacity" text="Capacity"     prefWidth="90"/>
+                    <TableColumn fx:id="colAllocated" text="Allocated MT" prefWidth="100"/>
+                    <TableColumn fx:id="colUnitCost" text="Unit Cost"    prefWidth="100"/>
+                    <TableColumn fx:id="colCostTotal" text="Cost (₹)"    prefWidth="110"/>
+                </columns>
+            </TableView>
+        </VBox>
+
+    </SplitPane>
+</VBox>

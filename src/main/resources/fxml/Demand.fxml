@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.pds.logistics.ui.controllers.DemandController" spacing="0">
+    <HBox styleClass="page-header" alignment="CENTER_LEFT" spacing="12">
+        <VBox spacing="2">
+            <Label text="📋 Demand" styleClass="page-title"/>
+            <Label text="Current period grain demand at Fair Price Shops" styleClass="page-subtitle"/>
+        </VBox>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="↻ Refresh" styleClass="btn-secondary" onAction="#loadData"/>
+    </HBox>
+    <TableView fx:id="tblDemand" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colId"          text="ID"          prefWidth="60"/>
+            <TableColumn fx:id="colLocation"    text="FPS"         prefWidth="200"/>
+            <TableColumn fx:id="colGrain"       text="Grain"       prefWidth="100"/>
+            <TableColumn fx:id="colRequired"    text="Required MT" prefWidth="110"/>
+            <TableColumn fx:id="colFulfilled"   text="Fulfilled"   prefWidth="110"/>
+            <TableColumn fx:id="colUnmet"       text="Unmet"       prefWidth="100"/>
+            <TableColumn fx:id="colBeneficiary" text="Beneficiaries" prefWidth="110"/>
+        </columns>
+    </TableView>
+</VBox>

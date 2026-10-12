@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.pds.logistics.ui.controllers.HistoryController"
+      spacing="0">
+
+    <HBox styleClass="page-header" alignment="CENTER_LEFT" spacing="12">
+        <VBox spacing="2">
+            <Label text="📜 History &amp; Export" styleClass="page-title"/>
+            <Label text="All previous optimization runs with CSV export" styleClass="page-subtitle"/>
+        </VBox>
+        <Region HBox.hgrow="ALWAYS"/>
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label fx:id="lblRowCount" text="" style="-fx-text-fill: #8b949e;"/>
+            <Button text="↻ Refresh"     styleClass="btn-secondary"  onAction="#refreshHistory"/>
+            <Button fx:id="btnExportSelected" text="⬇ Export Selected" styleClass="btn-secondary"
+                    onAction="#exportSelected"/>
+            <Button fx:id="btnExportHistory"  text="⬇ Export All"      styleClass="btn-primary"
+                    onAction="#exportHistory"/>
+        </HBox>
+    </HBox>
+
+    <TableView fx:id="tblHistory" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colRunId"      text="Run #"        prefWidth="70"/>
+            <TableColumn fx:id="colScenario"   text="Scenario"     prefWidth="180"/>
+            <TableColumn fx:id="colGrain"      text="Grain"        prefWidth="90"/>
+            <TableColumn fx:id="colTimestamp"  text="Timestamp"    prefWidth="150"/>
+            <TableColumn fx:id="colTransported" text="Transported" prefWidth="110"/>
+            <TableColumn fx:id="colCost"       text="Total Cost"   prefWidth="120"/>
+            <TableColumn fx:id="colEfficiency" text="Efficiency"   prefWidth="100"/>
+            <TableColumn fx:id="colStatus"     text="Status"       prefWidth="90"/>
+        </columns>
+    </TableView>
+</VBox>

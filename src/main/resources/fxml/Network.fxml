@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.pds.logistics.ui.controllers.NetworkController"
+      spacing="0">
+
+    <!-- Header -->
+    <HBox styleClass="page-header" alignment="CENTER_LEFT" spacing="12">
+        <VBox spacing="2">
+            <Label text="🗺️ Network Graph" styleClass="page-title"/>
+            <Label text="Visual representation of the logistics network with active flow overlay" styleClass="page-subtitle"/>
+        </VBox>
+        <Region HBox.hgrow="ALWAYS"/>
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <Label text="Grain:" style="-fx-text-fill: #8b949e;"/>
+            <ComboBox fx:id="cmbGrainType" prefWidth="90"/>
+            <CheckBox fx:id="chkShowFlow" text="Show Flow" textFill="#e6edf3"/>
+            <Button text="↻ Refresh" styleClass="btn-secondary" onAction="#refreshGraph"/>
+        </HBox>
+    </HBox>
+
+    <HBox VBox.vgrow="ALWAYS">
+        <!-- Canvas -->
+        <StackPane fx:id="canvasContainer" HBox.hgrow="ALWAYS" id="networkCanvas"/>
+
+        <!-- Right legend panel -->
+        <VBox style="-fx-background-color: #161b22; -fx-border-color: #30363d; -fx-border-width: 0 0 0 1px; -fx-padding: 16px;"
+              spacing="12" minWidth="180">
+            <Label text="Legend" styleClass="panel-title"/>
+            <Separator/>
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <Label text="■" style="-fx-text-fill: #f59e0b; -fx-font-size:16px;"/>
+                <Label text="Depot (FCI)" style="-fx-text-fill: #e6edf3; -fx-font-size:12px;"/>
+            </HBox>
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <Label text="▪" style="-fx-text-fill: #14b8a6; -fx-font-size:16px;"/>
+                <Label text="Warehouse" style="-fx-text-fill: #e6edf3; -fx-font-size:12px;"/>
+            </HBox>
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <Label text="●" style="-fx-text-fill: #22c55e; -fx-font-size:16px;"/>
+                <Label text="Fair Price Shop" style="-fx-text-fill: #e6edf3; -fx-font-size:12px;"/>
+            </HBox>
+            <Separator/>
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <Label text="──" style="-fx-text-fill: #f59e0b; -fx-font-size:14px;"/>
+                <Label text="Active Flow" style="-fx-text-fill: #e6edf3; -fx-font-size:12px;"/>
+            </HBox>
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <Label text="──" style="-fx-text-fill: #30363d; -fx-font-size:14px;"/>
+                <Label text="Idle Route" style="-fx-text-fill: #e6edf3; -fx-font-size:12px;"/>
+            </HBox>
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <Label text="- -" style="-fx-text-fill: #ef4444; -fx-font-size:14px;"/>
+                <Label text="Disabled" style="-fx-text-fill: #e6edf3; -fx-font-size:12px;"/>
+            </HBox>
+            <Separator/>
+            <Label text="Stats" styleClass="panel-title"/>
+            <HBox spacing="4">
+                <Label text="Nodes:" style="-fx-text-fill: #8b949e; -fx-font-size:12px;"/>
+                <Label fx:id="lblNodeCount" text="–" style="-fx-text-fill: #e6edf3;"/>
+            </HBox>
+            <HBox spacing="4">
+                <Label text="Edges:" style="-fx-text-fill: #8b949e; -fx-font-size:12px;"/>
+                <Label fx:id="lblEdgeCount" text="–" style="-fx-text-fill: #e6edf3;"/>
+            </HBox>
+            <HBox spacing="4">
+                <Label text="Flow edges:" style="-fx-text-fill: #8b949e; -fx-font-size:12px;"/>
+                <Label fx:id="lblFlowEdges" text="–" style="-fx-text-fill: #f59e0b;"/>
+            </HBox>
+            <Label fx:id="lblLegend" text="" wrapText="true"
+                   style="-fx-text-fill: #484f58; -fx-font-size:11px;"/>
+        </VBox>
+    </HBox>
+</VBox>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.pds.logistics.ui.controllers.DashboardController"
+      spacing="0">
+
+    <!-- Header -->
+    <HBox styleClass="page-header" alignment="CENTER_LEFT" spacing="12">
+        <VBox spacing="2">
+            <Label text="📊 Dashboard" styleClass="page-title"/>
+            <Label text="PDS supply chain overview and optimization summary" styleClass="page-subtitle"/>
+        </VBox>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Label fx:id="lblDbStatus" text="● Connecting" style="-fx-text-fill: #484f58; -fx-font-size: 12px;"/>
+        <Button text="↻ Refresh" styleClass="btn-secondary" onAction="#refreshDashboard"/>
+    </HBox>
+
+    <!-- Scrollable content -->
+    <ScrollPane VBox.vgrow="ALWAYS" fitToWidth="true">
+        <VBox spacing="20" style="-fx-padding: 24px;">
+
+            <!-- ── Row 1: Network KPIs ──────────────────────────────────────── -->
+            <Label text="Network Overview" styleClass="panel-title"/>
+            <GridPane hgap="16" vgap="16">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="25"/>
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="25"/>
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="25"/>
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="25"/>
+                </columnConstraints>
+
+                <!-- Total Locations -->
+                <VBox styleClass="metric-card" spacing="8" GridPane.columnIndex="0">
+                    <Label text="TOTAL LOCATIONS" styleClass="metric-label"/>
+                    <Label fx:id="lblTotalLocations" text="–" styleClass="metric-value,metric-badge-blue"/>
+                    <Label text="Depots + Warehouses + FPS" styleClass="metric-label"/>
+                </VBox>
+
+                <!-- Active Routes -->
+                <VBox styleClass="metric-card" spacing="8" GridPane.columnIndex="1">
+                    <Label text="ACTIVE ROUTES" styleClass="metric-label"/>
+                    <Label fx:id="lblActiveRoutes" text="–" styleClass="metric-value,metric-badge-teal"/>
+                    <Label text="Transport edges in network" styleClass="metric-label"/>
+                </VBox>
+
+                <!-- Wheat Supply -->
+                <VBox styleClass="metric-card" spacing="8" GridPane.columnIndex="2">
+                    <Label text="WHEAT SUPPLY" styleClass="metric-label"/>
+                    <Label fx:id="lblWheatSupply" text="–" styleClass="metric-value,metric-badge-amber"/>
+                    <Label text="Available metric tonnes" styleClass="metric-label"/>
+                </VBox>
+
+                <!-- Rice Supply -->
+                <VBox styleClass="metric-card" spacing="8" GridPane.columnIndex="3">
+                    <Label text="RICE SUPPLY" styleClass="metric-label"/>
+                    <Label fx:id="lblRiceSupply" text="–" styleClass="metric-value,metric-badge-green"/>
+                    <Label text="Available metric tonnes" styleClass="metric-label"/>
+                </VBox>
+            </GridPane>
+
+            <!-- ── Row 2: Demand KPIs ───────────────────────────────────────── -->
+            <Label text="Demand Summary" styleClass="panel-title"/>
+            <GridPane hgap="16" vgap="16">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="50"/>
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="50"/>
+                </columnConstraints>
+
+                <VBox styleClass="metric-card" spacing="8" GridPane.columnIndex="0">
+                    <Label text="TOTAL WHEAT DEMAND" styleClass="metric-label"/>
+                    <Label fx:id="lblWheatDemand" text="–" styleClass="metric-value"/>
+                    <Label text="Required this period across all FPS" styleClass="metric-label"/>
+                </VBox>
+
+                <VBox styleClass="metric-card" spacing="8" GridPane.columnIndex="1">
+                    <Label text="TOTAL RICE DEMAND" styleClass="metric-label"/>
+                    <Label fx:id="lblRiceDemand" text="–" styleClass="metric-value"/>
+                    <Label text="Required this period across all FPS" styleClass="metric-label"/>
+                </VBox>
+            </GridPane>
+
+            <!-- ── Row 3: Last Optimization Results ────────────────────────── -->
+            <Label text="Last Optimization Results" styleClass="panel-title"/>
+            <GridPane hgap="16" vgap="16">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="25"/>
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="25"/>
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="25"/>
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="25"/>
+                </columnConstraints>
+
+                <VBox styleClass="metric-card" spacing="8" GridPane.columnIndex="0">
+                    <Label text="WHEAT TRANSPORT COST" styleClass="metric-label"/>
+                    <Label fx:id="lblLastWheatCost" text="–" styleClass="metric-value,metric-badge-amber"/>
+                    <Label text="Last optimization run (₹)" styleClass="metric-label"/>
+                </VBox>
+
+                <VBox styleClass="metric-card" spacing="8" GridPane.columnIndex="1">
+                    <Label text="WHEAT EFFICIENCY" styleClass="metric-label"/>
+                    <Label fx:id="lblLastWheatEff" text="–" styleClass="metric-value,metric-badge-green"/>
+                    <ProgressBar fx:id="pbWheatEff" maxWidth="Infinity" prefHeight="6"/>
+                </VBox>
+
+                <VBox styleClass="metric-card" spacing="8" GridPane.columnIndex="2">
+                    <Label text="RICE TRANSPORT COST" styleClass="metric-label"/>
+                    <Label fx:id="lblLastRiceCost" text="–" styleClass="metric-value,metric-badge-teal"/>
+                    <Label text="Last optimization run (₹)" styleClass="metric-label"/>
+                </VBox>
+
+                <VBox styleClass="metric-card" spacing="8" GridPane.columnIndex="3">
+                    <Label text="RICE EFFICIENCY" styleClass="metric-label"/>
+                    <Label fx:id="lblLastRiceEff" text="–" styleClass="metric-value,metric-badge-green"/>
+                    <ProgressBar fx:id="pbRiceEff" maxWidth="Infinity" prefHeight="6"/>
+                </VBox>
+            </GridPane>
+
+            <!-- Last Run -->
+            <HBox styleClass="panel" spacing="12" alignment="CENTER_LEFT">
+                <Label text="Last Optimization Run:" styleClass="metric-label"/>
+                <Label fx:id="lblLastRunTime" text="No runs yet" style="-fx-text-fill: #e6edf3;"/>
+            </HBox>
+
+        </VBox>
+    </ScrollPane>
+</VBox>

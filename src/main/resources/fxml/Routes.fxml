@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.pds.logistics.ui.controllers.RoutesController"
+      spacing="0">
+
+    <HBox styleClass="page-header" alignment="CENTER_LEFT" spacing="12">
+        <VBox spacing="2">
+            <Label text="🛣 Transport Routes" styleClass="page-title"/>
+            <Label text="Configure network edges, capacities, unit costs and operational status" styleClass="page-subtitle"/>
+        </VBox>
+    </HBox>
+
+    <SplitPane VBox.vgrow="ALWAYS" dividerPositions="0.65">
+
+        <!-- Table -->
+        <VBox spacing="12" style="-fx-padding: 16px;">
+            <Label text="All Configured Routes" styleClass="panel-title"/>
+            <TableView fx:id="tblRoutes" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="colId"       text="ID"        prefWidth="45"/>
+                    <TableColumn fx:id="colSource"   text="Source"    prefWidth="160"/>
+                    <TableColumn fx:id="colDest"     text="Destination" prefWidth="160"/>
+                    <TableColumn fx:id="colCapacity" text="Capacity"  prefWidth="90"/>
+                    <TableColumn fx:id="colCost"     text="Unit Cost" prefWidth="85"/>
+                    <TableColumn fx:id="colDistance" text="Distance"  prefWidth="80"/>
+                    <TableColumn fx:id="colMode"     text="Mode"      prefWidth="75"/>
+                    <TableColumn fx:id="colActive"   text="Status"    prefWidth="65"/>
+                    <TableColumn fx:id="colRemarks"  text="Remarks"   prefWidth="120"/>
+                </columns>
+            </TableView>
+        </VBox>
+
+        <!-- Form -->
+        <VBox styleClass="panel" spacing="12" style="-fx-padding: 16px;">
+            <Label text="Add / Edit Route" styleClass="panel-title"/>
+            <Separator/>
+
+            <Label text="Source Location *" style="-fx-text-fill: #8b949e;"/>
+            <ComboBox fx:id="cmbSource" promptText="Select Source" maxWidth="Infinity"/>
+
+            <Label text="Destination Location *" style="-fx-text-fill: #8b949e;"/>
+            <ComboBox fx:id="cmbDest" promptText="Select Destination" maxWidth="Infinity"/>
+
+            <HBox spacing="12">
+                <VBox spacing="4" HBox.hgrow="ALWAYS">
+                    <Label text="Capacity (MT) *" style="-fx-text-fill: #8b949e;"/>
+                    <TextField fx:id="txfCapacity" promptText="e.g. 500.0"/>
+                </VBox>
+                <VBox spacing="4" HBox.hgrow="ALWAYS">
+                    <Label text="Cost (₹/MT) *" style="-fx-text-fill: #8b949e;"/>
+                    <TextField fx:id="txfCost" promptText="e.g. 35.00"/>
+                </VBox>
+            </HBox>
+
+            <HBox spacing="12">
+                <VBox spacing="4" HBox.hgrow="ALWAYS">
+                    <Label text="Distance (km) *" style="-fx-text-fill: #8b949e;"/>
+                    <TextField fx:id="txfDistance" promptText="e.g. 120.0"/>
+                </VBox>
+                <VBox spacing="4" HBox.hgrow="ALWAYS">
+                    <Label text="Mode" style="-fx-text-fill: #8b949e;"/>
+                    <ComboBox fx:id="cmbMode" maxWidth="Infinity"/>
+                </VBox>
+            </HBox>
+
+            <Label text="Remarks" style="-fx-text-fill: #8b949e;"/>
+            <TextField fx:id="txfRemarks" promptText="e.g. NH-48 Express Corridor"/>
+
+            <CheckBox fx:id="chkActive" text="Route Operational (Active)" textFill="#e6edf3" selected="true"/>
+
+            <Label fx:id="lblFormStatus" text="" style="-fx-text-fill: #8b949e; -fx-font-size:11px;"/>
+            <Separator/>
+
+            <HBox spacing="10">
+                <Button fx:id="btnSave" text="💾 Save Route" styleClass="btn-primary" onAction="#onSave" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                <Button fx:id="btnDelete" text="🗑 Delete" styleClass="btn-danger" onAction="#onDelete" disable="true"/>
+                <Button fx:id="btnClear" text="✖ Clear" styleClass="btn-secondary" onAction="#onClear"/>
+            </HBox>
+        </VBox>
+    </SplitPane>
+</VBox>
