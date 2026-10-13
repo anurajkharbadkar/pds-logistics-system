@@ -38,7 +38,7 @@
                     <HBox spacing="10" alignment="CENTER_LEFT">
                         <Button fx:id="btnRun" text="▶ Run MCMF Optimizer"
                                 styleClass="btn-primary" onAction="#runOptimization"/>
-                        <ProgressIndicator fx:id="spinner" prefSize="24" prefHeight="24"/>
+                        <ProgressIndicator fx:id="spinner" prefWidth="24" prefHeight="24"/>
                     </HBox>
                 </VBox>
 

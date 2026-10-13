@@ -1,42 +1,12 @@
 /* ==========================================================================
    PDS Logistics Optimization System – Main Stylesheet
    Design: Dark glassmorphism, amber/teal accent palette
-   Font: Inter (Google Fonts via @import)
    ========================================================================== */
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
-/* ── CSS Variables ─────────────────────────────────────────────────────────── */
-.root {
-    -fx-font-family: 'Inter', 'Segoe UI', system;
-    -fx-font-size: 13px;
-
-    /* Colour tokens */
-    --bg-primary:    #0d1117;
-    --bg-surface:    #161b22;
-    --bg-elevated:   #1c2230;
-    --bg-glass:      rgba(22,27,34,0.80);
-
-    --accent-amber:  #f59e0b;
-    --accent-teal:   #14b8a6;
-    --accent-red:    #ef4444;
-    --accent-green:  #22c55e;
-    --accent-blue:   #3b82f6;
-
-    --text-primary:  #e6edf3;
-    --text-secondary:#8b949e;
-    --text-muted:    #484f58;
-
-    --border-subtle: #30363d;
-    --border-active: #f59e0b;
-
-    --radius-sm:     6px;
-    --radius-md:     10px;
-    --radius-lg:     16px;
-}
 
 /* ── Root & Scene ──────────────────────────────────────────────────────────── */
 .root {
+    -fx-font-family: 'Inter', 'Segoe UI', system;
+    -fx-font-size: 13px;
     -fx-background-color: #0d1117;
     -fx-text-fill: #e6edf3;
 }

@@ -1,0 +1,17 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: pds_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: "pds_logistics"
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./src/main/resources/sql/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
+      - ./src/main/resources/sql/seed_data.sql:/docker-entrypoint-initdb.d/02_seed_data.sql:ro
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:

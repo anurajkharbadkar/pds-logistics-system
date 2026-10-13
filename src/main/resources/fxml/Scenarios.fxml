@@ -53,7 +53,7 @@
                     <HBox spacing="10" alignment="CENTER_LEFT">
                         <Button fx:id="btnRunScenario" text="▶ Run Scenario" styleClass="btn-primary"
                                 onAction="#runScenario"/>
-                        <ProgressIndicator fx:id="spinner" prefSize="24"/>
+                        <ProgressIndicator fx:id="spinner" prefWidth="24" prefHeight="24"/>
                     </HBox>
                 </VBox>
 
