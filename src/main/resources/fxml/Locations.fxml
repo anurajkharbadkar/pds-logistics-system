@@ -18,7 +18,7 @@
     <SplitPane VBox.vgrow="ALWAYS" dividerPositions="0.65">
 
         <!-- Table -->
-        <VBox spacing="12" style="-fx-padding: 16px;">
+        <VBox spacing="12" style="-fx-padding: 16px; -fx-background-color: #0d1117;">
             <Label text="All Locations" styleClass="panel-title"/>
             <TableView fx:id="tblLocations" VBox.vgrow="ALWAYS">
                 <columns>

@@ -92,7 +92,7 @@
         </VBox>
 
         <!-- ── BOTTOM: Results Table ─────────────────────────────────────────── -->
-        <VBox spacing="12" style="-fx-padding: 16px 20px;">
+        <VBox spacing="12" style="-fx-padding: 16px 20px; -fx-background-color: #0d1117;">
             <HBox alignment="CENTER_LEFT" spacing="12">
                 <Label text="Route-Wise Allocation Results" styleClass="panel-title"/>
                 <Region HBox.hgrow="ALWAYS"/>
