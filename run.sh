@@ -10,6 +10,11 @@ cd "$DIR"
 # Ensure brew and java binaries are on PATH
 export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
 
+# Prefer Java 21 if installed
+if [ -z "$JAVA_HOME" ] && command -v /usr/libexec/java_home >/dev/null 2>&1; then
+    export JAVA_HOME="$(/usr/libexec/java_home -v 21 2>/dev/null || /usr/libexec/java_home 2>/dev/null)"
+fi
+
 ACTION="${1:-run}"
 
 wait_for_mysql() {

@@ -214,3 +214,18 @@ The unit test suite covers key graph theory and system invariants:
 - `MCMFSolverTest`: Optimal flow allocation, capacity bottleneck enforcement, multi-depot cost minimization, and inactive route exclusion.
 - `ScenarioTest`: Deep-copy immutability, supply reduction, demand surge, and targeted edge failure.
 - `CsvExportServiceTest`: CSV generation, header integrity, and allocation record validation.
+
+---
+
+## 7. College Presentation, Datasets & Viva Voce Resources
+
+For academic project submission, evaluations, and external viva voce presentations, the following dedicated attachments are included:
+
+- **[Raw Datasets & Dictionary](file://dataset/DATASET_DICTIONARY.md)**:
+  - [`dataset/locations.csv`](file://dataset/locations.csv) – All 27 supply, warehouse, and demand nodes with geographic coordinates.
+  - [`dataset/transport_routes.csv`](file://dataset/transport_routes.csv) – 34 transportation corridors with capacities and unit costs.
+  - [`dataset/inventory.csv`](file://dataset/inventory.csv) – Depot commodity stock levels.
+  - [`dataset/demand_records.csv`](file://dataset/demand_records.csv) – Monthly fair price shop quotas and beneficiary counts.
+- **[College Presentation & Viva Voce Guide](file://docs/COLLEGE_PRESENTATION_AND_VIVA_GUIDE.md)** – Comprehensive theoretical proofs, time complexity derivations, architecture diagrams, and anticipated viva questions with answers.
+- **[Presentation Slide Brief](file://docs/PROJECT_POSTER_SUMMARY.md)** – Elevator pitch, demo checklist, and key metrics for slides and presentation posters.
+
