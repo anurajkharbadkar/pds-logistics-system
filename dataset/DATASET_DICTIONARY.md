@@ -101,3 +101,4 @@ Represents monthly entitlement quotas at Tier-3 Fair Price Shops.
 3. **Super-Sink ($T$):** Virtual sink vertex receiving directed edges from all Fair Price Shops ($j \in \{10, \dots, 27\}$).
    - Capacity: $\text{Capacity}(j \to T) = \text{required\_mt}$
    - Cost: $c(j \to T) = 0$
+
